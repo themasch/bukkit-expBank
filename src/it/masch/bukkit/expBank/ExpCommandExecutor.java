@@ -55,6 +55,7 @@ public class ExpCommandExecutor implements CommandExecutor
             }
             if(amount < 0) {
                 sender.sendMessage("Please give a positive amount");
+                return false;
             }
         }
         if(args.length == 0 || args[0].equalsIgnoreCase("show")) {  // just show help
@@ -83,7 +84,6 @@ public class ExpCommandExecutor implements CommandExecutor
             expChanged = true;
         }
         else {
-            sender.sendMessage(cmnd.getUsage());
             return false;
         }
         
