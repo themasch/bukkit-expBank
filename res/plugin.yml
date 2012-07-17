@@ -1,0 +1,14 @@
+name: expBank
+version: 0.1.0
+description: save your exp
+author: masch
+main: it.masch.bukkit.expBank.ExpBankMain
+commands:
+    exp:
+        description: All expBank Commands
+        usage: |
+                  expBank allows you to use the following commands
+                  /<command> dp [<amount>] Deposit XP to your Account
+                  /<command> show Shows the amount of XP you've got
+                  /<command> wd [<amount>] Withdraw XP from your Account
+              
