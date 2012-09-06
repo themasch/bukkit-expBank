@@ -1,0 +1,46 @@
+<project name="expBank" default="dist" basedir=".">
+    <description>
+    </description>
+  <!-- set global properties for this build -->
+  <property name="src" location="src"/>
+  <property name="res" location="res"/>
+  <property name="build" location="build"/>
+  <property name="dist"  location="dist"/>
+  <property name="lib"  location="lib"/>
+
+  <target name="init">
+    <!-- Create the time stamp -->
+    <tstamp/>
+    <!-- Create the build directory structure used by compile -->
+    <mkdir dir="${build}"/>
+    <mkdir dir="${lib}"/>
+  </target>
+
+  <target name="compile" depends="init"
+        description="compile the source " >
+    <!-- Compile the java code from ${src} into ${build} -->
+    <get src="http://dl.bukkit.org/latest-rb/craftbukkit.jar" dest="${lib}" skipexisting="true"/>
+    <copy todir="${build}">
+        <fileset dir="${res}" />
+    </copy>
+    <javac srcdir="${src}" destdir="${build}">
+        <classpath> <pathelement location="lib/craftbukkit.jar"/> </classpath>
+    </javac>
+  </target>
+
+  <target name="dist" depends="compile"
+        description="generate the distribution" >
+    <!-- Create the distribution directory -->
+    <mkdir dir="${dist}"/>
+
+    <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
+    <jar jarfile="${dist}/expBank.jar" basedir="${build}"/>
+  </target>
+
+  <target name="clean"
+        description="clean up" >
+    <!-- Delete the ${build} and ${dist} directory trees -->
+    <delete dir="${build}"/>
+    <delete dir="${dist}"/>
+  </target>
+</project>
