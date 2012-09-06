@@ -38,7 +38,7 @@ public class ExpCommandExecutor implements CommandExecutor
                
         String playerName = player.getName().toLowerCase();
         int playerBalance = config.getInt("balance." + playerName, 0);
-        int playerExp     = player.getTotalExperience();
+        int playerExp     = this.getTotalExpForLevel(player.getLevel(), player.getExp());
         
         // is there a amount int the options?
         if(args.length == 2) {
@@ -102,4 +102,25 @@ public class ExpCommandExecutor implements CommandExecutor
                                 + ChatColor.DARK_GREEN + playerBalance);
         return true;
     }
+
+    // workaround for buggy player.getTotalExperience();
+    private int getTotalExpForLevel(int alvl, float part) 
+    {   
+        int exp = (int)Math.floor(this.getExpForLevel(alvl) * part);
+        while(alvl-- > 0) {
+            exp += this.getExpForLevel(alvl);
+        }   
+        return exp;
+    }   
+
+    private int getExpForLevel(int level)
+    {   
+      if(level >= 30) {
+        return 62 + (level - 30) * 7;
+      }
+      if(level >= 15) {
+        return 17 + (level - 15) * 3;
+      }
+      return 17;    
+    }   
 }
